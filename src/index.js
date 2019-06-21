@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
 
 //starting the server 
 app.set('port', process.env.PORT || 3000)
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server on port ${3000}`)
 })
 
