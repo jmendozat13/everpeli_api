@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
+var path = require('path');
 
 require('dotenv/config')
 
@@ -28,15 +29,16 @@ app.use(require('./routes/index'))
 app.use('/api/posts/', require('./routes/post'))
 app.use('/api/users/', require('./routes/users'))
 
+
 // Handler for 404 - Resource Not Found
 app.use((req, res, next) => {
-    res.status(404).send('We think you are lost!')
+    res.sendFile(path.join(__dirname + '/error/404.html'));
 })
 
 // Handler for Error 500
 app.use((err, req, res, next) => {
     console.error(err.stack)
-    res.send('Error 500!')
+    res.sendFile(path.join(__dirname + '/error/503.html'));
 })
 
 //starting the server 
