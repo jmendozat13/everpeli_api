@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 const Post = require('../models/Post')
+const verify = require('./verifyToken')
 
 router.get('/', async (req, res) => {
     try {
@@ -21,7 +22,8 @@ router.get('/:postId', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', verify, async (req, res) => {
+    console.log(req.user)
     const { title, description } = req.body;
     if (title && description) {
         const post = new Post({
@@ -38,7 +40,7 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'There was an error.' })
 })
 
-router.delete('/:postId', async (req, res) => {
+router.delete('/:postId', verify, async (req, res) => {
     try {
         const { postId } = req.params
         const _post = await Post.findByIdAndDelete(postId)
@@ -52,7 +54,7 @@ router.delete('/:postId', async (req, res) => {
     }
 })
 
-router.put('/:postId', async (req, res) => {
+router.put('/:postId', verify, async (req, res) => {
     const { postId } = req.params
     const { title } = req.body;
     try {

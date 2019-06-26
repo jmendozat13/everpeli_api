@@ -1,13 +1,12 @@
 const express = require('express')
-const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 var path = require('path');
-
 require('dotenv/config')
 
+const app = express()
 
 //settings 
 app.set('json spaces', 2)
@@ -27,7 +26,8 @@ app.use(cors())
 //routes
 app.use(require('./routes/index'))
 app.use('/api/posts/', require('./routes/post'))
-app.use('/api/users/', require('./routes/users'))
+app.use('/api/comments/', require('./routes/comments'))
+app.use('/api/auth/', require('./routes/auth'))
 
 
 // Handler for 404 - Resource Not Found
