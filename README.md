@@ -15,12 +15,6 @@ OS X y Linux:
 npm install
 ```
 
-Windows:
-
-```sh
-edit autoexec.bat
-```
-
 ## Ejemplo de uso
 
 Usar Postman
