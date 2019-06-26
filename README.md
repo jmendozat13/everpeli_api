@@ -34,7 +34,7 @@ npm run dev
 
 ## Meta
 
-Valentin Mendoza Torres – [@TuTwitter](https://twitter.com/mendozat94) – jmendozat13@gmail.com
+Valentin Mendoza Torres – [@mendozat94](https://twitter.com/mendozat94) – jmendozat13@gmail.com
 
 Distribuido bajo la licencia MIT. Ver ``LICENSE`` para más información.
 
