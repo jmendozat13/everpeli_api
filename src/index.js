@@ -28,6 +28,7 @@ app.use(require('./routes/index'))
 app.use('/api/posts/', require('./routes/post'))
 app.use('/api/comments/', require('./routes/comments'))
 app.use('/api/auth/', require('./routes/auth'))
+app.use('/api/movies/', require('./routes/movie'))
 
 
 // Handler for 404 - Resource Not Found
@@ -43,7 +44,7 @@ app.use((err, req, res, next) => {
 
 //starting the server 
 app.set('port', process.env.PORT || 3000)
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server on port ${3000}`)
+app.listen(app.get('port'), () => {
+    console.log(`Server on port ${app.get('port')}`)
 })
 

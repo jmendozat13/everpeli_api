@@ -30,5 +30,23 @@ const loginValidation = data => {
     return Joi.validate(data, schema)
 }
 
+const registerMovieValidation = data => {
+    const schema = {
+        backdrop_path: Joi.string()
+            .required(),
+        poster_path: Joi.string()
+            .required(),
+        original_title: Joi.string()
+            .required()
+            .max(250)
+            .min(3),
+        overview: Joi.string()
+            .required()
+    }
+    return Joi.validate(data, schema)
+}
+
+
 module.exports.registerUserValidation = registerUserValidation
 module.exports.loginValidation = loginValidation
+module.exports.registerMovieValidation = registerMovieValidation
