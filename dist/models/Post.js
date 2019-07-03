@@ -1,8 +1,13 @@
 "use strict";
 
-var mongoose = require('mongoose');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var PostSchema = mongoose.Schema({
+var _mongoose = require("mongoose");
+
+var PostSchema = (0, _mongoose.Schema)({
   title: {
     type: String,
     required: true
@@ -16,4 +21,7 @@ var PostSchema = mongoose.Schema({
     "default": Date.now
   }
 });
-module.exports = mongoose.model('Posts', PostSchema);
+
+var _default = (0, _mongoose.model)('Post', PostSchema);
+
+exports["default"] = _default;

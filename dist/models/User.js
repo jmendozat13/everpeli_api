@@ -1,8 +1,13 @@
 "use strict";
 
-var mongoose = require('mongoose');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var userShema = new mongoose.Schema({
+var _mongoose = require("mongoose");
+
+var userShema = new _mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -26,4 +31,7 @@ var userShema = new mongoose.Schema({
     "default": Date.now
   }
 });
-module.exports = mongoose.model('User', userShema);
+
+var _default = (0, _mongoose.model)('User', userShema);
+
+exports["default"] = _default;

@@ -1,21 +1,27 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _express = require("express");
+
+var _User = _interopRequireDefault(require("../models/User"));
+
+var _bcryptjs = require("bcryptjs");
+
+var _jsonwebtoken = require("jsonwebtoken");
+
+var _validation = require("../validation");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var router = require('express').Router();
-
-var User = require('../models/User');
-
-var bcrypt = require('bcryptjs');
-
-var jwt = require('jsonwebtoken');
-
-var _require = require('../validation'),
-    registerUserValidation = _require.registerUserValidation,
-    loginValidation = _require.loginValidation;
-
+var router = (0, _express.Router)();
 router.post('/register',
 /*#__PURE__*/
 function () {
@@ -28,51 +34,49 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, name = _req$body.name, email = _req$body.email, password = _req$body.password; //Lets validate the data before we a user
-
-            _registerUserValidati = registerUserValidation(req.body), error = _registerUserValidati.error;
+            _req$body = req.body, name = _req$body.name, email = _req$body.email, password = _req$body.password;
+            _context.prev = 1;
+            _registerUserValidati = (0, _validation.registerUserValidation)(req.body), error = _registerUserValidati.error;
 
             if (!error) {
-              _context.next = 4;
+              _context.next = 5;
               break;
             }
 
             return _context.abrupt("return", res.status(400).send(error.details[0].message));
 
-          case 4:
-            _context.next = 6;
-            return User.findOne({
+          case 5:
+            _context.next = 7;
+            return _User["default"].findOne({
               email: email
             });
 
-          case 6:
+          case 7:
             emailExist = _context.sent;
 
             if (!emailExist) {
-              _context.next = 9;
+              _context.next = 10;
               break;
             }
 
             return _context.abrupt("return", res.status(400).send('Email already exists'));
 
-          case 9:
-            _context.next = 11;
-            return bcrypt.genSalt(10);
+          case 10:
+            _context.next = 12;
+            return (0, _bcryptjs.genSalt)(10);
 
-          case 11:
+          case 12:
             salt = _context.sent;
-            _context.next = 14;
-            return bcrypt.hash(password, salt);
+            _context.next = 15;
+            return (0, _bcryptjs.hash)(password, salt);
 
-          case 14:
+          case 15:
             hashedPassword = _context.sent;
-            //Create a new user
-            user = new User({
+            user = new _User["default"]({
               name: name,
               email: email,
               password: hashedPassword
             });
-            _context.prev = 16;
             _context.next = 19;
             return user.save();
 
@@ -87,15 +91,15 @@ function () {
 
           case 23:
             _context.prev = 23;
-            _context.t0 = _context["catch"](16);
-            res.status(400).send(_context.t0);
+            _context.t0 = _context["catch"](1);
+            res.status(500).send(_context.t0);
 
           case 26:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[16, 23]]);
+    }, _callee, null, [[1, 23]]);
   }));
 
   return function (_x, _x2) {
@@ -114,9 +118,8 @@ function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password; //Lets validate the data
-
-            _loginValidation = loginValidation(req.body), error = _loginValidation.error;
+            _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
+            _loginValidation = (0, _validation.loginValidation)(req.body), error = _loginValidation.error;
 
             if (!error) {
               _context2.next = 4;
@@ -126,52 +129,60 @@ function () {
             return _context2.abrupt("return", res.status(400).send(error.details[0].message));
 
           case 4:
-            _context2.next = 6;
-            return User.findOne({
+            _context2.prev = 4;
+            _context2.next = 7;
+            return _User["default"].findOne({
               email: email
             });
 
-          case 6:
+          case 7:
             user = _context2.sent;
 
             if (user) {
-              _context2.next = 9;
+              _context2.next = 10;
               break;
             }
 
             return _context2.abrupt("return", res.status(400).send('Email is not found'));
 
-          case 9:
-            _context2.next = 11;
-            return bcrypt.compare(password, user.password);
+          case 10:
+            _context2.next = 12;
+            return (0, _bcryptjs.compare)(password, user.password);
 
-          case 11:
+          case 12:
             validPass = _context2.sent;
 
             if (validPass) {
-              _context2.next = 14;
+              _context2.next = 15;
               break;
             }
 
             return _context2.abrupt("return", res.status(400).send('Invalid password'));
 
-          case 14:
-            //create an assing a token 
-            token = jwt.sign({
+          case 15:
+            token = (0, _jsonwebtoken.sign)({
               _id: user._id
             }, process.env.TOKEN_SECRET);
             res.header('auth-token', token).send(token);
+            _context2.next = 22;
+            break;
 
-          case 16:
+          case 19:
+            _context2.prev = 19;
+            _context2.t0 = _context2["catch"](4);
+            res.status(500).send(_context2.t0);
+
+          case 22:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, null, [[4, 19]]);
   }));
 
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }());
-module.exports = router;
+var _default = router;
+exports["default"] = _default;

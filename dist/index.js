@@ -1,52 +1,38 @@
 "use strict";
 
-var express = require('express');
+var _app = _interopRequireDefault(require("./app"));
 
-var morgan = require('morgan');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var bodyParser = require('body-parser');
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-var mongoose = require('mongoose');
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var cors = require('cors');
+function main() {
+  return _main.apply(this, arguments);
+}
 
-var path = require('path');
+function _main() {
+  _main = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _app["default"].listen(_app["default"].get('port'), function () {
+              console.log("Server on port ".concat(_app["default"].get('port')));
+            });
 
-require('dotenv/config');
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _main.apply(this, arguments);
+}
 
-var app = express(); //settings 
-
-app.set('json spaces', 2);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-})); //connection to mongoDB 
-
-mongoose.connect(process.env.DB_CONNECTION, {
-  useNewUrlParser: true
-}, function () {
-  return console.log('connected to DB!');
-}); //middlewares
-
-app.use(morgan('dev'));
-app.use(cors()); //routes
-
-app.use(require('./routes/index'));
-app.use('/api/posts/', require('./routes/post'));
-app.use('/api/comments/', require('./routes/comments'));
-app.use('/api/auth/', require('./routes/auth'));
-app.use('/api/movies/', require('./routes/movie')); // Handler for 404 - Resource Not Found
-
-app.use(function (req, res, next) {
-  res.sendFile(path.join(__dirname + '/error/404.html'));
-}); // Handler for Error 500
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.sendFile(path.join(__dirname + '/error/503.html'));
-}); //starting the server 
-
-app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function () {
-  console.log("Server on port ".concat(app.get('port')));
-});
+main();

@@ -1,9 +1,8 @@
 import { Router } from 'express';
+import { getIndex } from '../controllers/index.controller'
 const router = Router()
 
-router.get('/', (req, res) => {
-    res.json({ title: "Hello EverSaaS" })
-})
+router.get('/', getIndex)
 
 
 export default router

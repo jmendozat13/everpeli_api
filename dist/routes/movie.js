@@ -1,67 +1,71 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _express = require("express");
+
+var _Movie = _interopRequireDefault(require("../models/Movie"));
+
+var _verifyToken = _interopRequireDefault(require("./verifyToken"));
+
+var _validation = require("../validation");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var _require = require('express'),
-    Router = _require.Router;
-
-var router = Router();
-
-var Movie = require('../models/Movie');
-
-var verify = require('./verifyToken');
-
-var _require2 = require('../validation'),
-    registerMovieValidation = _require2.registerMovieValidation;
-
-router.post('/', verify,
+var router = (0, _express.Router)();
+router.post('/', _verifyToken["default"],
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res) {
-    var _req$body, backdrop_path, poster_path, original_title, overview, _registerMovieValidat, error, movieExist, movie, saveMovie;
+    var _req$body, backdrop_path, poster_path, original_title, overview, _registerMovieValidat, _error, movieExist, movie, saveMovie;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, backdrop_path = _req$body.backdrop_path, poster_path = _req$body.poster_path, original_title = _req$body.original_title, overview = _req$body.overview;
-            _registerMovieValidat = registerMovieValidation(req.body), error = _registerMovieValidat.error;
+            _context.prev = 1;
+            _registerMovieValidat = (0, _validation.registerMovieValidation)(req.body), _error = _registerMovieValidat.error;
 
-            if (!error) {
-              _context.next = 4;
+            if (!_error) {
+              _context.next = 5;
               break;
             }
 
-            return _context.abrupt("return", res.status(400).send(error.details[0].message));
+            return _context.abrupt("return", res.status(400).send(_error.details[0].message));
 
-          case 4:
-            _context.next = 6;
-            return Movie.findOne({
+          case 5:
+            _context.next = 7;
+            return _Movie["default"].findOne({
               original_title: original_title
             });
 
-          case 6:
+          case 7:
             movieExist = _context.sent;
 
             if (!movieExist) {
-              _context.next = 9;
+              _context.next = 10;
               break;
             }
 
             return _context.abrupt("return", res.status(400).send('Original_title already exists'));
 
-          case 9:
-            movie = new Movie({
+          case 10:
+            movie = new _Movie["default"]({
               backdrop_path: backdrop_path,
               poster_path: poster_path,
               original_title: original_title,
               overview: overview
             });
-            _context.prev = 10;
             _context.next = 13;
             return movie.save();
 
@@ -73,7 +77,7 @@ function () {
 
           case 17:
             _context.prev = 17;
-            _context.t0 = _context["catch"](10);
+            _context.t0 = _context["catch"](1);
             res.status(500).json({
               message: _context.t0
             });
@@ -83,7 +87,7 @@ function () {
             return _context.stop();
         }
       }
-    }, _callee, null, [[10, 17]]);
+    }, _callee, null, [[1, 17]]);
   }));
 
   return function (_x, _x2) {
@@ -103,7 +107,7 @@ function () {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return Movie.find();
+            return _Movie["default"].find();
 
           case 3:
             movies = _context2.sent;
@@ -130,4 +134,5 @@ function () {
     return _ref2.apply(this, arguments);
   };
 }());
-module.exports = router;
+var _default = router;
+exports["default"] = _default;

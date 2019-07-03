@@ -1,8 +1,13 @@
 "use strict";
 
-var mongoose = require('mongoose');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var movieSchema = mongoose.Schema({
+var _mongoose = require("mongoose");
+
+var movieSchema = (0, _mongoose.Schema)({
   backdrop_path: {
     type: String,
     required: true
@@ -26,4 +31,7 @@ var movieSchema = mongoose.Schema({
     "default": Date.now
   }
 });
-module.exports = mongoose.model('Movie', movieSchema);
+
+var _default = (0, _mongoose.model)('Movie', movieSchema);
+
+exports["default"] = _default;
