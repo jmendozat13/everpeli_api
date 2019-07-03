@@ -1,8 +1,8 @@
-const { Router } = require('express')
+import { Router } from 'express';
 const router = Router()
-const Movie = require('../models/Movie')
-const verify = require('./verifyToken')
-const { registerMovieValidation } = require('../validation');
+import Movie from '../models/Movie';
+import verify from './verifyToken';
+import { registerMovieValidation } from '../validation';
 
 router.post('/', verify, async (req, res) => {
     const {
@@ -40,4 +40,4 @@ router.get('/', async (req, res) => {
     }
 })
 
-module.exports = router
+export default router

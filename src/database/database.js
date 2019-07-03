@@ -1,11 +1,11 @@
 import Sequelize from 'sequelize'
 
 export const sequelize = new Sequelize(
-    'database',
-    'user',
-    'password',
+    process.env.BD_SQL_DATABASE,
+    process.env.BD_SQL_USERNAME,
+    process.env.BD_SQL_PASSWORD,
     {
-        host: 'localhost',
+        host: process.env.BD_SQL_HOSTNAME,
         dialect: 'mysql',
         pool: {
             max: 5,

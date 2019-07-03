@@ -1,9 +1,9 @@
-const { Router } = require('express')
-const router = Router()
-const Post = require('../models/Post')
-const verify = require('./verifyToken')
+import { Router } from 'express';
+import Post from '../models/Post';
+import verify from './verifyToken';
 
-router.get('/', async (req, res) => {
+const router = Router()
+router.get('/', verify, async (req, res) => {
     try {
         const posts = await Post.find();
         res.json(posts)
@@ -68,4 +68,4 @@ router.put('/:postId', verify, async (req, res) => {
 })
 
 
-module.exports = router
+export default router

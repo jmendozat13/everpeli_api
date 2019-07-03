@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+import Joi from '@hapi/joi';
 
 const registerUserValidation = data => {
 
@@ -47,6 +47,9 @@ const registerMovieValidation = data => {
 }
 
 
-module.exports.registerUserValidation = registerUserValidation
-module.exports.loginValidation = loginValidation
-module.exports.registerMovieValidation = registerMovieValidation
+const _registerUserValidation = registerUserValidation;
+export { _registerUserValidation as registerUserValidation };
+const _loginValidation = loginValidation;
+export { _loginValidation as loginValidation };
+const _registerMovieValidation = registerMovieValidation;
+export { _registerMovieValidation as registerMovieValidation };

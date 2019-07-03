@@ -1,6 +1,6 @@
-const { Router } = require('express')
+import { Router } from 'express';
+import fetch from 'node-fetch';
 const router = Router()
-const fetch = require('node-fetch')
 
 router.get('/', async (req, res) => {
     const response = await fetch('https://jsonplaceholder.typicode.com/comments')
@@ -8,4 +8,4 @@ router.get('/', async (req, res) => {
     res.json(comments)
 })
 
-module.exports = router
+export default router

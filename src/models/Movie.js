@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose';
 
-const movieSchema = mongoose.Schema({
+const movieSchema = Schema({
     backdrop_path: {
         type: String,
         required: true
@@ -25,4 +25,4 @@ const movieSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Movie', movieSchema)
+export default model('Movie', movieSchema)
