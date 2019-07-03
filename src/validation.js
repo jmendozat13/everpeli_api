@@ -1,7 +1,6 @@
 import Joi from '@hapi/joi';
 
-const registerUserValidation = data => {
-
+export const registerUserValidation = data => {
     const schema = {
         name: Joi.string()
             .min(6)
@@ -16,8 +15,7 @@ const registerUserValidation = data => {
     }
     return Joi.validate(data, schema)
 }
-const loginValidation = data => {
-
+export const loginValidation = data => {
     const schema = {
         email: Joi.string()
             .min(6)
@@ -30,7 +28,7 @@ const loginValidation = data => {
     return Joi.validate(data, schema)
 }
 
-const registerMovieValidation = data => {
+export const registerMovieValidation = data => {
     const schema = {
         backdrop_path: Joi.string()
             .required(),
@@ -45,11 +43,3 @@ const registerMovieValidation = data => {
     }
     return Joi.validate(data, schema)
 }
-
-
-const _registerUserValidation = registerUserValidation;
-export { _registerUserValidation as registerUserValidation };
-const _loginValidation = loginValidation;
-export { _loginValidation as loginValidation };
-const _registerMovieValidation = registerMovieValidation;
-export { _registerMovieValidation as registerMovieValidation };

@@ -11,19 +11,20 @@ router.post('/', verify, async (req, res) => {
         original_title,
         overview } = req.body;
 
-    const { error } = registerMovieValidation(req.body)
-    if (error) return res.status(400).send(error.details[0].message)
-
-    const movieExist = await Movie.findOne({ original_title: original_title })
-    if (movieExist) return res.status(400).send('Original_title already exists')
-
-    const movie = new Movie({
-        backdrop_path: backdrop_path,
-        poster_path: poster_path,
-        original_title: original_title,
-        overview: overview
-    })
     try {
+        const { error } = registerMovieValidation(req.body)
+        if (error) return res.status(400).send(error.details[0].message)
+
+        const movieExist = await Movie.findOne({ original_title: original_title })
+        if (movieExist) return res.status(400).send('Original_title already exists')
+
+        const movie = new Movie({
+            backdrop_path: backdrop_path,
+            poster_path: poster_path,
+            original_title: original_title,
+            overview: overview
+        })
+
         const saveMovie = await movie.save()
         res.json(saveMovie)
     } catch (err) {

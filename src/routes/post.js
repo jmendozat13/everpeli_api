@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import Post from '../models/Post';
-import verify from './verifyToken';
-
+import { Router } from 'express'
+import Post from '../models/Post'
+import verify from './verifyToken'
 const router = Router()
+
 router.get('/', verify, async (req, res) => {
     try {
         const posts = await Post.find();
