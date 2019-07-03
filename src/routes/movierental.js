@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { createMovieRental } from '../controllers/movierental.controller'
+import { createMovieRental, getMovieRental } from '../controllers/movierental.controller'
 const router = Router()
 
-router.get('/', createMovieRental);
-
+router.post('/', createMovieRental)
+router.get('/', getMovieRental)
 export default router
