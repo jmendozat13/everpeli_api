@@ -1,15 +1,10 @@
 # everpeli_api
-> Proyecto API basado en NodeJS 
+> Proyecto API basado en NodeJS - ECMAScript 6
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
-API que ofrece endpoints para gestionar usuarios y peliculas
+Se expone los servicios para listar películas, detalles de películas y alquiler de películas.
+Validación de seguridad con JWT, mapeo de datos con sequelizejs, base de datos con MongoDB y MySql
 
 ## Instalación
-
-OS X y Linux:
 
 ```sh
 npm install
@@ -28,7 +23,10 @@ npm run dev
 ```
 
 ## Historial de versiones
-
+* 0.0.2 
+   * Movie service
+   * MovieRental service
+   * MovieRentalDetails service
 * 0.0.1
     * Gestion de usuarios con token
 
@@ -36,12 +34,8 @@ npm run dev
 
 Valentin Mendoza Torres – [@mendozat94](https://twitter.com/mendozat94) – jmendozat13@gmail.com
 
+[Visita mi sitio web](https://vmtgames.com/)
+
 Distribuido bajo la licencia MIT. Ver ``LICENSE`` para más información.
 
 [https://github.com/jmendozat13](https://github.com/dbader/)
-
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
